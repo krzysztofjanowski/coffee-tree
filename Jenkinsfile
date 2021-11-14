@@ -11,6 +11,7 @@ pipeline {
             }
             steps {
                 echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+                echo "one echo after another works fine..."
             }
         }
         stage('Test') {
@@ -19,13 +20,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            input {
-                message 'Deploy?'
-                ok 'Do it!'
-                parameters {
-                    string(name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environment')
-                }
-            }
             steps {
                 echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
             }
@@ -34,6 +28,8 @@ pipeline {
     post{
         always {
              echo 'Prints whether deploy happened or not, success or failure'
+             slackSend channel: '#general',
+                       message: 'release: ${RELEASE} has been deployed '
         }
     }
 }
