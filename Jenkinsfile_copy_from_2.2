@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam(name 'RC', defaultValue: false, description: 'Is release canddiate?')
+    }
     environment {
         RELEASE='20.04'
     }
