@@ -11,6 +11,8 @@ pipeline {
             }
             steps {
                 echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+                pwd 
+                sleep 1 
             }
         }
         stage('Test') {
@@ -21,7 +23,7 @@ pipeline {
     }
     post{
         always {
-             echo 'Prints whether deploy happened or not, success or failure'
+             echo 'Prints whether deploy success or failure'
         }
     }
 }
